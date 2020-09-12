@@ -50,14 +50,71 @@ const cards = [
 ];
 
 window.onload = function () {
-  cards.map((card, index) => {
+  const styledCards = createCards();
+  renderToHTML(styledCards);
+  restart();
+};
+
+function createCards(ordenedCards) {
+  cardsList = ordenedCards ?? cards;
+  const styledCards = cardsList.map((card, index) => {
     newDiv = document.createElement("div");
     newDiv.classList.add("card");
     newDiv.id = `card-${index}`;
     newDiv.innerText = card.name;
     newDiv.style.backgroundColor = card.color;
-
-    const container = document.querySelector(".container");
-    return container.appendChild(newDiv);
+    return newDiv;
   });
-};
+  return styledCards;
+}
+
+function cleanBoard(styledCards) {
+  styledCards.forEach((card) => {
+    let element = document.querySelector(`#${card.id}`);
+    element.remove();
+  });
+}
+
+function renderToHTML(styledCards) {
+  const container = document.querySelector(".cardContainer");
+  for (card of styledCards) {
+    container.appendChild(card);
+  }
+}
+
+function restart() {
+  const restartBtn = document.querySelector("#restart");
+  restartBtn.addEventListener("click", function () {
+    const listRandomNumbersAlreadyUsed = [];
+    const ordenedCards = [];
+
+    while (listRandomNumbersAlreadyUsed.length < cards.length) {
+      let randomNumber = getUniqueNumber(listRandomNumbersAlreadyUsed, cards.length);
+      if (!isNumberUsed(randomNumber, listRandomNumbersAlreadyUsed)) {
+        ordenedCards.push(cards[randomNumber]);
+        listRandomNumbersAlreadyUsed.push(randomNumber);
+      }
+    }
+    const styledCards = createCards(ordenedCards);
+    cleanBoard(styledCards)
+    renderToHTML(styledCards);
+  });
+}
+
+function getUniqueNumber(randomNumberAlreadyUsed, quantity) {
+  let number = 0;
+  while (isNumberUsed(number, randomNumberAlreadyUsed)) {
+    number = generateRandomNumber(quantity);
+  }
+  return number;
+}
+
+function isNumberUsed(number, randomNumberAlreadyUsed) {
+  if (randomNumberAlreadyUsed.includes(number)) return true;
+  return false;
+}
+
+function generateRandomNumber(quantity) {
+  const number = Math.floor(Math.random() * quantity);
+  return number;
+}
