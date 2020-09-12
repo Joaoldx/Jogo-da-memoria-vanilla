@@ -56,13 +56,19 @@ window.onload = function () {
 };
 
 function createCards(ordenedCards) {
-  cardsList = ordenedCards ?? cards;
+  const cardsList = ordenedCards ?? cards;
   const styledCards = cardsList.map((card, index) => {
     newDiv = document.createElement("div");
     newDiv.classList.add("card");
     newDiv.id = `card-${index}`;
     newDiv.innerText = card.name;
     newDiv.style.backgroundColor = card.color;
+
+    newDiv.addEventListener("click", function (e) {
+      const selectedElement = document.querySelector(`#${e.target.id}`);
+      selectedElement.classList.toggle("blackBackground");
+    });
+
     return newDiv;
   });
   return styledCards;
@@ -89,14 +95,17 @@ function restart() {
     const ordenedCards = [];
 
     while (listRandomNumbersAlreadyUsed.length < cards.length) {
-      let randomNumber = getUniqueNumber(listRandomNumbersAlreadyUsed, cards.length);
+      let randomNumber = getUniqueNumber(
+        listRandomNumbersAlreadyUsed,
+        cards.length,
+      );
       if (!isNumberUsed(randomNumber, listRandomNumbersAlreadyUsed)) {
         ordenedCards.push(cards[randomNumber]);
         listRandomNumbersAlreadyUsed.push(randomNumber);
       }
     }
     const styledCards = createCards(ordenedCards);
-    cleanBoard(styledCards)
+    cleanBoard(styledCards);
     renderToHTML(styledCards);
   });
 }

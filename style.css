@@ -29,3 +29,7 @@
     background-color: '#A3E4D7';
     height: 50px;
 }
+
+.blackBackground {
+    background-color: black!important;
+}
