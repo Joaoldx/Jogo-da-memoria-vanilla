@@ -1,35 +1,35 @@
 .wrapper {
-    display: grid;
-    grid-template-columns: 10% 90%;
+  display: grid;
+  grid-template-columns: 10% 90%;
 }
 
 .cardContainer {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-gap: 20px;
-    place-
-    items: center;
-    padding: 0 15vw;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 30px;
+  place-items: center;
+  padding: 0 15vw;
+  width: max-content;
 }
 
 .card {
-    display: block;
-    height: 300px;
-    width: 200px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 2px solid black;
-    border-radius: 7px;
+  display: block;
+  height: 300px;
+  width: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid black;
+  border-radius: 7px;
 }
 
 .button {
-    padding: 10px 15px;
-    font-size: 16px;
-    background-color: '#A3E4D7';
-    height: 50px;
+  padding: 10px 15px;
+  font-size: 16px;
+  background-color: "#A3E4D7";
+  height: 50px;
 }
 
 .blackBackground {
-    background-color: black!important;
+  background-color: black !important;
 }
