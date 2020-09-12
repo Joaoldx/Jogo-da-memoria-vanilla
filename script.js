@@ -95,14 +95,9 @@ function restart() {
     const ordenedCards = [];
 
     while (listRandomNumbersAlreadyUsed.length < cards.length) {
-      let randomNumber = getUniqueNumber(
-        listRandomNumbersAlreadyUsed,
-        cards.length,
-      );
-      if (!isNumberUsed(randomNumber, listRandomNumbersAlreadyUsed)) {
-        ordenedCards.push(cards[randomNumber]);
-        listRandomNumbersAlreadyUsed.push(randomNumber);
-      }
+      let randomNumber = getUniqueNumber(listRandomNumbersAlreadyUsed, cards.length);
+      ordenedCards.push(cards[randomNumber]);
+      listRandomNumbersAlreadyUsed.push(randomNumber);
     }
     const styledCards = createCards(ordenedCards);
     cleanBoard(styledCards);
@@ -111,7 +106,7 @@ function restart() {
 }
 
 function getUniqueNumber(randomNumberAlreadyUsed, quantity) {
-  let number = 0;
+  let number = generateRandomNumber(quantity);
   while (isNumberUsed(number, randomNumberAlreadyUsed)) {
     number = generateRandomNumber(quantity);
   }
