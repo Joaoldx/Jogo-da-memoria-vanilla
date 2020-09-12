@@ -50,7 +50,8 @@ const cards = [
 ];
 
 window.onload = function () {
-  const styledCards = createCards();
+  const ordenedCards = ramdomListCards();
+  const styledCards = createCards(ordenedCards);
   renderToHTML(styledCards);
   restart();
 };
@@ -88,17 +89,22 @@ function renderToHTML(styledCards) {
   }
 }
 
+function ramdomListCards() {
+  const listRandomNumbersAlreadyUsed = [];
+  const ordenedCards = [];
+
+  while (listRandomNumbersAlreadyUsed.length < cards.length) {
+    let randomNumber = getUniqueNumber(listRandomNumbersAlreadyUsed, cards.length);
+    ordenedCards.push(cards[randomNumber]);
+    listRandomNumbersAlreadyUsed.push(randomNumber);
+  }
+  return ordenedCards;
+}
+
 function restart() {
   const restartBtn = document.querySelector("#restart");
   restartBtn.addEventListener("click", function () {
-    const listRandomNumbersAlreadyUsed = [];
-    const ordenedCards = [];
-
-    while (listRandomNumbersAlreadyUsed.length < cards.length) {
-      let randomNumber = getUniqueNumber(listRandomNumbersAlreadyUsed, cards.length);
-      ordenedCards.push(cards[randomNumber]);
-      listRandomNumbersAlreadyUsed.push(randomNumber);
-    }
+    const ordenedCards = ramdomListCards();
     const styledCards = createCards(ordenedCards);
     cleanBoard(styledCards);
     renderToHTML(styledCards);
